@@ -5,6 +5,10 @@ import (
 	"os/exec"
 )
 
+func main() {
+	
+}
+
 func extractNameServersFromDig(domain string) ([]map[string]string, error) {
 //	nameservers = make([]map[string]string, 1)
 
