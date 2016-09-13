@@ -1,7 +1,12 @@
 package main
 
-import "testing"
+import (
+	"testing"
+	"fmt"
+)
 
 func TestExtactNameServers (t *testing.T) {
-	extractNameServersFromDig("yandex.ru")
+	nameservers, _ := extractNameServersFromDig("openprovider.nl")
+
+	fmt.Printf("%#v", nameservers)
 }
