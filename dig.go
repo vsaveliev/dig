@@ -1,27 +1,25 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"os/exec"
-	"bufio"
 	"strings"
 )
 
 func main() {
-
+	// to do nothing
 }
 
 type Nameserver struct {
 	Domain string
-	IpV4 string
-	IpV6 string
+	IpV4   string
+	IpV6   string
 }
 
 type Nameservers []Nameserver
 
 func extractNameServersFromDig(domain string) (Nameservers, error) {
-//	nameservers = make([]map[string]string, 1)
-
 	cmd := exec.Command("dig", domain, "NS", "+short")
 	out, err := cmd.StdoutPipe()
 	if err != nil {
@@ -43,7 +41,7 @@ func extractNameServersFromDig(domain string) (Nameservers, error) {
 		s := scanner.Text()
 		nameserver.Domain = s[:len(s)-1]
 
-		if (strings.HasSuffix(nameserver.Domain, "." + domain)) {
+		if strings.HasSuffix(nameserver.Domain, "."+domain) {
 			// it's a glue record = nameserver is subdomain of current domain
 			// only in this case we need to get ip of nameserver
 			ipv4, _ := exec.Command("dig", nameserver.Domain, "A", "+short").Output()

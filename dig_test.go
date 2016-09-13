@@ -2,11 +2,16 @@ package main
 
 import (
 	"testing"
-	"fmt"
 )
 
-func TestExtactNameServers (t *testing.T) {
-	nameservers, _ := extractNameServersFromDig("openprovider.nl")
+func TestExtactNameServers(t *testing.T) {
+	nameservers, err := extractNameServersFromDig("openprovider.nl")
 
-	fmt.Printf("%#v", nameservers)
+	if err != nil {
+		t.Fatalf("Extracting error: %s", err)
+	}
+
+	if nameservers == nil {
+		t.Fatalf("Nameservers are empty")
+	}
 }
